@@ -1,20 +1,21 @@
 package com.caiopedroso.educacional.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+@Entity
+@Table(name = "cursos")
 public class Curso {
 
     /*
-     * ID (PK, int): Identificador único do curso.
+     * ID (PK, Integer): Identificador único do curso.
      * nome (varchar, 100): Nome do curso.
      * codigo (varchar, 20): Código único do curso.
-     * carga_horaria (int): Carga horária total do curso em horas.
+     * carga_horaria (Integer): Carga horária total do curso em horas.
      */
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ID;
+    private Integer ID;
 
     @Column(length = 100)
     private String nome;
@@ -23,13 +24,13 @@ public class Curso {
     private String codigo;
 
     @Column
-    private int carga_horaria;
+    private Integer carga_horaria;
 
-    public int getID() {
+    public Integer getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(Integer ID) {
         this.ID = ID;
     }
 
@@ -49,11 +50,11 @@ public class Curso {
         this.codigo = codigo;
     }
 
-    public int getCarga_horaria() {
+    public Integer getCarga_horaria() {
         return carga_horaria;
     }
 
-    public void setCarga_horaria(int carga_horaria) {
+    public void setCarga_horaria(Integer carga_horaria) {
         this.carga_horaria = carga_horaria;
     }
 }

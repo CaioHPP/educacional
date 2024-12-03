@@ -3,57 +3,66 @@ package com.caiopedroso.educacional.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.List;
+
+@Entity
+@Table(name = "turmas")
 public class Turma {
     /*
-     * ID (PK, int): Identificador único da turma.
-     * ano (int): Ano letivo.
-     * semestre (int): Semestre letivo (1 ou 2).
-     * curso_id (FK, int): Referência ao curso da turma (relacionamento ManyToOne
+     * ID (PK, Integer): Identificador único da turma.
+     * ano (Integer): Ano letivo.
+     * semestre (Integer): Semestre letivo (1 ou 2).
+     * curso_id (FK, Integer): Referência ao curso da turma (relacionamento ManyToOne
      * com Cursos).
      */
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ID;
+    private Integer ID;
 
     @Column
-    private int ano;
+    private Integer ano;
 
     @Column
-    private int semestre;
+    private Integer semestre;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "curso_id", referencedColumnName = "id")
+    private Curso curso;
+    @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("turma")
+    private List<Matricula> matriculas;
 
-    @Column
-    private int curso_id;
-
-    public int getID() {
+    public Integer getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(Integer ID) {
         this.ID = ID;
     }
 
-    public int getAno() {
+    public List<Matricula> getMatriculas() {
+        return matriculas;
+    }
+
+    public void setMatriculas(List<Matricula> matriculas) {
+        this.matriculas = matriculas;
+    }
+
+    public Integer getAno() {
         return ano;
     }
 
-    public void setAno(int ano) {
+    public void setAno(Integer ano) {
         this.ano = ano;
     }
 
-    public int getSemestre() {
+    public Integer getSemestre() {
         return semestre;
     }
 
-    public void setSemestre(int semestre) {
+    public void setSemestre(Integer semestre) {
         this.semestre = semestre;
     }
 
-    public int getCurso_id() {
-        return curso_id;
-    }
 
-    public void setCurso_id(int curso_id) {
-        this.curso_id = curso_id;
-    }
 }

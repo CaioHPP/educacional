@@ -5,12 +5,14 @@ import jakarta.persistence.*;
 
 import java.sql.Date;
 
+@Entity
+@Table(name = "notas")
 public class Nota {
     /*
-     * ID (PK, int): Identificador único da nota.
-     * matricula_id (FK, int): Referência à matrícula do aluno (relacionamento
+     * ID (PK, Integer): Identificador único da nota.
+     * matricula_id (FK, Integer): Referência à matrícula do aluno (relacionamento
      * ManyToOne com Matriculas).
-     * disciplina_id (FK, int): Referência à disciplina para a qual a nota foi
+     * disciplina_id (FK, Integer): Referência à disciplina para a qual a nota foi
      * atribuída (relacionamento ManyToOne com Disciplinas).
      * nota (decimal, 5, 2): Nota obtida pelo aluno na disciplina.
      * data_lancamento (date): Data de lançamento da nota.
@@ -18,43 +20,32 @@ public class Nota {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ID;
+    private Integer ID;
 
     @Column
-    private int matricula_id;
-
-    @Column
-    private int disciplina_id;
-
-    @Column(precision = 5, scale = 2)
     private double nota;
 
     @Column
     private java.sql.Date data_lancamento;
 
-    public int getID() {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "matricula_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("notas")
+    private Matricula matricula;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "disciplina_id", referencedColumnName = "id")
+    private Disciplina disciplina;
+
+
+    public Integer getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(Integer ID) {
         this.ID = ID;
     }
 
-    public int getMatricula_id() {
-        return matricula_id;
-    }
-
-    public void setMatricula_id(int matricula_id) {
-        this.matricula_id = matricula_id;
-    }
-
-    public int getDisciplina_id() {
-        return disciplina_id;
-    }
-
-    public void setDisciplina_id(int disciplina_id) {
-        this.disciplina_id = disciplina_id;
-    }
 
     public double getNota() {
         return nota;
@@ -70,5 +61,21 @@ public class Nota {
 
     public void setData_lancamento(Date data_lancamento) {
         this.data_lancamento = data_lancamento;
+    }
+
+    public Matricula getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(Matricula matricula) {
+        this.matricula = matricula;
+    }
+
+    public Disciplina getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
     }
 }

@@ -1,12 +1,13 @@
 package com.caiopedroso.educacional.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+@Entity
+@Table(name = "professores")
 public class Professor {
 
     /*
-     * ID (PK, int): Identificador único do professor.
+     * ID (PK, Integer): Identificador único do professor.
      * nome (varchar, 100): Nome completo do professor.
      * email (varchar, 100): Email do professor.
      * telefone (varchar, 15): Telefone de contato do professor.
@@ -16,7 +17,7 @@ public class Professor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private int ID;
+    private Integer ID;
 
     @Column(length = 100)
     private String nome;
@@ -30,11 +31,11 @@ public class Professor {
     @Column(length = 100)
     private String especialidade;
 
-    public int getID() {
+    public Integer getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(Integer ID) {
         this.ID = ID;
     }
 
