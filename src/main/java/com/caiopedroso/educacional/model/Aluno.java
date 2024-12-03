@@ -1,23 +1,23 @@
 package com.caiopedroso.educacional.model;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
-
 @Entity
 @Table(name = "alunos")
 public class Aluno {
-    /* ID (PK, int): Identificador único do aluno.
-nome (varchar, 100): Nome completo do aluno.
-email (varchar, 100): Email do aluno.
-matricula (varchar, 20): Número de matrícula único do aluno.
-data_nascimento (date): Data de nascimento do aluno. */
+    /*
+     * ID (PK, int): Identificador único do aluno.
+     * nome (varchar, 100): Nome completo do aluno.
+     * email (varchar, 100): Email do aluno.
+     * matricula (varchar, 20): Número de matrícula único do aluno.
+     * data_nascimento (date): Data de nascimento do aluno.
+     */
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID;
 
     @Column(length = 100)
@@ -63,7 +63,6 @@ data_nascimento (date): Data de nascimento do aluno. */
     public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
-
 
     public LocalDate getData_nascimento() {
         return data_nascimento;
