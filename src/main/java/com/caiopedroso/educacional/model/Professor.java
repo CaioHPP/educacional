@@ -31,6 +31,7 @@ public class Professor {
     @Column(length = 100)
     private String especialidade;
 
+
     public Integer getID() {
         return ID;
     }
@@ -70,4 +71,6 @@ public class Professor {
     public void setEspecialidade(String especialidade) {
         this.especialidade = especialidade;
     }
+
+
 }

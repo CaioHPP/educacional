@@ -3,7 +3,7 @@ package com.caiopedroso.educacional.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "notas")
@@ -26,7 +26,7 @@ public class Nota {
     private double nota;
 
     @Column
-    private java.sql.Date data_lancamento;
+    private LocalDate data_lancamento;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "matricula_id", referencedColumnName = "id")
@@ -55,11 +55,11 @@ public class Nota {
         this.nota = nota;
     }
 
-    public Date getData_lancamento() {
+    public LocalDate getData_lancamento() {
         return data_lancamento;
     }
 
-    public void setData_lancamento(Date data_lancamento) {
+    public void setData_lancamento(LocalDate data_lancamento) {
         this.data_lancamento = data_lancamento;
     }
 

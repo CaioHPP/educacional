@@ -25,7 +25,7 @@ public class Curso {
 
     @Column
     private Integer carga_horaria;
-
+    
     public Integer getID() {
         return ID;
     }

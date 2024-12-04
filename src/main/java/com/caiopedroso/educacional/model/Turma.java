@@ -25,6 +25,7 @@ public class Turma {
 
     @Column
     private Integer semestre;
+    
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "curso_id", referencedColumnName = "id")
     private Curso curso;
@@ -64,5 +65,12 @@ public class Turma {
         this.semestre = semestre;
     }
 
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
 
 }
