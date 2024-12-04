@@ -2,8 +2,11 @@ package com.caiopedroso.educacional.controller;
 
 
 import com.caiopedroso.educacional.dto.CursoRequestDTO;
+import com.caiopedroso.educacional.dto.CursoResponseDTO;
 import com.caiopedroso.educacional.model.Curso;
+import com.caiopedroso.educacional.model.Disciplina;
 import com.caiopedroso.educacional.repository.CursoRepository;
+import com.caiopedroso.educacional.repository.DisciplinaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,17 +20,29 @@ public class CursoController {
     @Autowired
     private CursoRepository repository;
 
+    @Autowired
+    private DisciplinaRepository disciplinaRepository;
+
     @GetMapping
-    public ResponseEntity<List<Curso>> findAll() {
-        return ResponseEntity.ok(this.repository.findAll());
+    public ResponseEntity<List<CursoResponseDTO>> findAll() {
+        List<Curso> cursos = this.repository.findAll();
+
+        return ResponseEntity.ok(cursos.stream()
+                .map(curso -> {
+                    List<Disciplina> disciplinas = this.disciplinaRepository.findByCurso(curso);
+                    return new CursoResponseDTO(curso.getNome(), curso.getCodigo(), curso.getCarga_horaria(), curso.getID(), disciplinas);
+                })
+                .toList());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Curso> findById(@PathVariable Integer id) {
+    public ResponseEntity<CursoResponseDTO> findById(@PathVariable Integer id) {
         Curso curso = this.repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Curso não encontrado."));
+        List<Disciplina> disciplinas = this.disciplinaRepository.findByCurso(curso);
+        return ResponseEntity.ok(new CursoResponseDTO(curso.getNome(), curso.getCodigo(), curso.getCarga_horaria(), curso.getID(), disciplinas));
 
-        return ResponseEntity.ok(curso);
+
     }
 
     @PostMapping

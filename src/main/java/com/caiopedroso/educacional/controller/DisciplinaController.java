@@ -1,6 +1,7 @@
 package com.caiopedroso.educacional.controller;
 
 
+import com.caiopedroso.educacional.dto.DisciplinaDesempenhoResponseDTO;
 import com.caiopedroso.educacional.dto.DisciplinaRequestDTO;
 import com.caiopedroso.educacional.model.Curso;
 import com.caiopedroso.educacional.model.Disciplina;
@@ -90,6 +91,15 @@ public class DisciplinaController {
         return ResponseEntity.ok(savedDisciplina);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        Disciplina disciplina = this.repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Disciplina não encontrado."));
+
+        this.repository.delete(disciplina);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/{id}/notas")
     public ResponseEntity<List<Nota>> getNotas(@PathVariable Integer id) {
         Disciplina disciplina = this.repository.findById(id)
@@ -100,13 +110,33 @@ public class DisciplinaController {
         return ResponseEntity.ok(notas);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    @GetMapping("/{id}/desempenho")
+    public ResponseEntity<DisciplinaDesempenhoResponseDTO> getDesempenho(@PathVariable Integer id) {
         Disciplina disciplina = this.repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Disciplina não encontrado."));
 
-        this.repository.delete(disciplina);
-        return ResponseEntity.noContent().build();
+        List<Nota> notas = this.notaRepository.findByDisciplina(disciplina);
+        double media = notas.stream().mapToDouble(Nota::getNota).average().orElse(0.0);
+        media = Math.round(media * 100.0) / 100.0;
+        Integer numeroAlunos = notas.size();
+
+        DisciplinaDesempenhoResponseDTO desempenho = new DisciplinaDesempenhoResponseDTO(disciplina.getNome(), disciplina.getCodigo(), disciplina.getCurso(), media, numeroAlunos);
+
+        return ResponseEntity.ok(desempenho);
+
     }
 
+    @GetMapping("/desempenho")
+    public ResponseEntity<List<DisciplinaDesempenhoResponseDTO>> getDesempenho() {
+        List<Disciplina> disciplinas = this.repository.findAll();
+        List<DisciplinaDesempenhoResponseDTO> desempenhos = disciplinas.stream().map(disciplina -> {
+            List<Nota> notas = this.notaRepository.findByDisciplina(disciplina);
+            double media = notas.stream().mapToDouble(Nota::getNota).average().orElse(0.0);
+            media = Math.round(media * 100.0) / 100.0;
+            Integer numeroAlunos = notas.size();
+            return new DisciplinaDesempenhoResponseDTO(disciplina.getNome(), disciplina.getCodigo(), disciplina.getCurso(), media, numeroAlunos);
+        }).toList();
+
+        return ResponseEntity.ok(desempenhos);
+    }
 }
