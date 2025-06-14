@@ -108,6 +108,7 @@ To run the system properly, you need to:
     <artifactId>spring-boot-starter-test</artifactId>
     <scope>test</scope>
 </dependency>
+```
 How to Run
 Clone this repository.
 
