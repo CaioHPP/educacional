@@ -1,44 +1,40 @@
-# Sistema Educacional
+# Educational System
 
-Este projeto é um sistema educacional desenvolvido com **Spring Boot** e organizado em quatro principais camadas para
-facilitar a manutenção e a escalabilidade: **controller**, **dto**, **model** e **repository**. Além disso, ele conta
-com uma documentação gerada automaticamente pelo **SpringDoc OpenAPI**.
+This project is an educational system developed with **Spring Boot** and organized into four main layers to ensure maintainability and scalability: **controller**, **dto**, **model**, and **repository**. Additionally, it includes automatically generated documentation using **SpringDoc OpenAPI**.
 
-## Funcionalidades
+## Features
 
-- Cadastro e gerenciamento de Alunos, Professores, Cursos, Turmas, Disciplinas, Matrículas e Notas.
-- Visualização de boletim de alunos.
-- Cálculo de desempenho de disciplinas e turmas.
-- Endpoints REST para operações CRUD.
-- Documentação Swagger acessível via navegador.
+- Registration and management of Students, Teachers, Courses, Classes, Subjects, Enrollments, and Grades.
+- Student report card view.
+- Performance calculation for subjects and classes.
+- REST endpoints for CRUD operations.
+- Swagger documentation accessible via browser.
 
-## Estrutura do Projeto
+## Project Structure
 
-### Camadas
+### Layers
 
-1. **Controller**: Contém os endpoints do backend, implementando os métodos para GET, POST, PUT e DELETE.
-2. **DTO**: Contém os objetos de transferência de dados (requests e responses) para manipular e retornar informações
-   específicas em requisições HTTP.
-3. **Model**: Contém as classes que representam as entidades do sistema.
-4. **Repository**: Contém as interfaces que estendem a biblioteca JPA para manipulação de dados no banco.
+1. **Controller**: Contains backend endpoints, implementing methods for GET, POST, PUT, and DELETE.
+2. **DTO**: Contains Data Transfer Objects (requests and responses) to handle and return specific information in HTTP requests.
+3. **Model**: Contains classes that represent the system entities.
+4. **Repository**: Contains interfaces extending the JPA library to handle database operations.
 
-## Tecnologias Utilizadas
+## Technologies Used
 
 - **Spring Boot**
 - **Spring Data JPA**
 - **Flyway**
 - **MySQL**
-- **SpringDoc OpenAPI** (versão 2.6.0)
+- **SpringDoc OpenAPI** (version 2.6.0)
 
-## Endpoints Disponíveis
+## Available Endpoints
 
-Acesse a documentação Swagger para explorar os endpoints:
+Access the Swagger documentation to explore all endpoints:
 
-```
 http://localhost:8080/swagger-ui/index.html
-```
 
-### Principais Controladores
+
+### Main Controllers
 
 #### Professor Controller
 
@@ -48,7 +44,7 @@ http://localhost:8080/swagger-ui/index.html
 - `PUT /api/professores/{id}`
 - `DELETE /api/professores/{id}`
 
-#### Disciplina Controller
+#### Subject Controller
 
 - `GET /api/disciplinas`
 - `POST /api/disciplinas`
@@ -59,7 +55,7 @@ http://localhost:8080/swagger-ui/index.html
 - `GET /api/disciplinas/{id}/desempenho`
 - `GET /api/disciplinas/desempenho`
 
-#### Aluno Controller
+#### Student Controller
 
 - `GET /api/alunos`
 - `POST /api/alunos`
@@ -69,65 +65,58 @@ http://localhost:8080/swagger-ui/index.html
 - `POST /api/alunos/{aluno_id}/matricula`
 - `GET /api/alunos/{aluno_id}/boletim`
 
-E muitos outros! Consulte o Swagger para uma lista completa.
+And many more! Check the Swagger documentation for a full list.
 
-## Banco de Dados
+## Database
 
-Para o funcionamento correto, é necessário:
+To run the system properly, you need to:
 
-1. Iniciar um banco de dados MySQL.
-2. Criar um banco chamado `educacional` antes de rodar a aplicação.
+1. Start a MySQL database.
+2. Create a database named `educacional` before running the application.
 
-## Dependências do Projeto
+## Project Dependencies
 
 ```xml
-
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-data-jpa</artifactId>
 </dependency>
 <dependency>
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-starter-web</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
 </dependency>
 <dependency>
-<groupId>org.flywaydb</groupId>
-<artifactId>flyway-core</artifactId>
+    <groupId>org.flywaydb</groupId>
+    <artifactId>flyway-core</artifactId>
 </dependency>
 <dependency>
-<groupId>org.flywaydb</groupId>
-<artifactId>flyway-mysql</artifactId>
+    <groupId>org.flywaydb</groupId>
+    <artifactId>flyway-mysql</artifactId>
 </dependency>
 <dependency>
-<groupId>org.springdoc</groupId>
-<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-<version>2.6.0</version>
+    <groupId>org.springdoc</groupId>
+    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+    <version>2.6.0</version>
 </dependency>
 <dependency>
-<groupId>com.mysql</groupId>
-<artifactId>mysql-connector-j</artifactId>
-<scope>runtime</scope>
+    <groupId>com.mysql</groupId>
+    <artifactId>mysql-connector-j</artifactId>
+    <scope>runtime</scope>
 </dependency>
 <dependency>
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-starter-test</artifactId>
-<scope>test</scope>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-test</artifactId>
+    <scope>test</scope>
 </dependency>
-```
+How to Run
+Clone this repository.
 
-## Como Executar
+Set up a MySQL database and create the educacional schema.
 
-1. Clone este repositório.
-2. Configure um banco de dados MySQL e crie o banco `educacional`.
-3. Ajuste as configurações de conexão no arquivo `application.properties`.
-4. Execute a aplicação a partir do arquivo `EducacionalApplication.java`.
-5. Acesse o Swagger em:
+Configure the connection settings in the application.properties file.
 
-```
+Run the application from the EducacionalApplication.java file.
+
+Access Swagger at:
+
 http://localhost:8080/swagger-ui/index.html
-```
-
-## Contribuição
-
-Contribuições são bem-vindas! Fique à vontade para abrir issues ou enviar pull requests.
-
